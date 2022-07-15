@@ -1,0 +1,32 @@
+$navMainBg: #1976d2;
+$textColor: rgb(5, 5, 5);
+
+.button__basic {
+  width: 4rem;
+  height: 2rem;
+  border-radius: 1rem;
+  border: none;
+}
+
+.navbar {
+  background-color: $navMainBg;
+
+  &__appBar {
+    background-color: $navMainBg;
+  }
+
+  &__login {
+    text-decoration: none;
+    color: $textColor;
+  }
+  &__signup {
+    text-decoration: none;
+    color: $textColor;
+  }
+
+  &__btn {
+    @extend .button__basic;
+    color: $textColor;
+    margin-right: 0.5rem;
+  }
+}
