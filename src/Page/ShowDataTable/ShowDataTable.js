@@ -88,7 +88,7 @@ const ShowDataTable = () => {
                       {index + 1}
                     </TableCell>
                     <TableCell>
-                      <Avatar alt={data.name} src={data?.image?.secure_url} />
+                      <Avatar alt={data.name} src={data?.image} />
                     </TableCell>
                     <TableCell>{data.name}</TableCell>
 

@@ -47,7 +47,7 @@ const Login = () => {
     if (auth === false) {
       Swal.fire({
         icon: "error",
-        title: "Authontication filed",
+        title: "Authentication failed!",
         showConfirmButton: false,
         timer: 1500,
       });
