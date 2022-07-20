@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const initialState = {
   userData: [],
@@ -10,7 +11,14 @@ const initialState = {
 export const userCreateData = createAsyncThunk(
   "userData/userPostData",
   async (userData) => {
-    const res = await axios.post("http://localhost:5000/api/user", userData);
+    const { loginData } = useSelector(
+      (state) => state.rootReducer.loginReducer
+    );
+    const res = await axios.post("http://localhost:5000/api/user", userData, {
+      headers: {
+        Authorization: loginData?.token,
+      },
+    });
 
     return res.data;
   }
@@ -19,7 +27,14 @@ export const userCreateData = createAsyncThunk(
 export const userGetData = createAsyncThunk(
   "userData/userGetData",
   async (email) => {
-    const res = await axios.get(`http://localhost:5000/api/user/${email}`);
+    const { loginData } = useSelector(
+      (state) => state.rootReducer.loginReducer
+    );
+    const res = await axios.get(`http://localhost:5000/api/user/${email}`, {
+      headers: {
+        Authorization: loginData?.token,
+      },
+    });
 
     return res.data;
   }

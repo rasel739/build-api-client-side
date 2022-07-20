@@ -8,7 +8,6 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-
 import { userCreateData } from "../../redux/feature/userDataSlice";
 
 const InputForm = () => {
@@ -53,7 +52,7 @@ const InputForm = () => {
       email: loginData.user,
       image: userImage,
     };
-
+    console.log(userInputData);
     dispatch(userCreateData(userInputData));
 
     Swal.fire({
