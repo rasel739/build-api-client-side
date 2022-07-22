@@ -8,10 +8,14 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import PreLoader from "../../PreLoder/PreLoader";
 import { userCreateData } from "../../redux/feature/userDataSlice";
 
 const InputForm = () => {
-  const { loginData } = useSelector((state) => state.rootReducer.loginReducer);
+  const { loginData } = useSelector((state) => state.persistedReducer);
+  const { dataAdd, loading } = useSelector(
+    (state) => state.rootReducer.userReducer
+  );
   const [inputs, setInputs] = useState({});
   const [userImage, setUserImage] = useState(null);
 
@@ -52,15 +56,24 @@ const InputForm = () => {
       email: loginData.user,
       image: userImage,
     };
-    console.log(userInputData);
+
     dispatch(userCreateData(userInputData));
 
-    Swal.fire({
-      icon: "success",
-      title: "New Data Add Success",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    dataAdd === true &&
+      Swal.fire({
+        icon: "success",
+        title: "New Data Add Success",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+    dataAdd === false &&
+      Swal.fire({
+        icon: "error",
+        title: "New Data Add not found",
+        showConfirmButton: false,
+        timer: 1500,
+      });
   };
 
   return (
@@ -121,14 +134,18 @@ const InputForm = () => {
                 )}
               </Grid>
               <Grid item xs={12} md={3}>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  startIcon={<AddIcon />}
-                  color="success"
-                >
-                  Add
-                </Button>
+                {loading ? (
+                  <PreLoader />
+                ) : (
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    startIcon={<AddIcon />}
+                    color="success"
+                  >
+                    Add
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </form>

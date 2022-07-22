@@ -10,18 +10,21 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import loginReducer from "../redux/feature/loginSlice";
 import rootReducer from "./rootReducer/rootReducer";
+
 const persistConfig = {
   key: "buildapi",
   version: 1,
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, loginReducer);
 
 const store = configureStore({
   reducer: {
-    rootReducer: persistedReducer,
+    rootReducer: rootReducer,
+    persistedReducer: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

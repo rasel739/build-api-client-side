@@ -1,6 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import Model from "../../components/model/Model";
+import PreLoader from "../../PreLoder/PreLoader";
+
 import { userDeleteData, userGetData } from "../../redux/feature/userDataSlice";
 
 const ShowDataTable = () => {
@@ -21,8 +23,10 @@ const ShowDataTable = () => {
   const dispatch = useDispatch();
   const [updateData, setUpdateData] = useState("");
 
-  const { loginData } = useSelector((state) => state.rootReducer.loginReducer);
-  const { userData } = useSelector((state) => state.rootReducer.userReducer);
+  const { loginData } = useSelector((state) => state.persistedReducer);
+  const { userData, loading } = useSelector(
+    (state) => state.rootReducer.userReducer
+  );
 
   const handleClose = () => setOpen(false);
   const handleOpen = (data) => {
@@ -54,73 +58,79 @@ const ShowDataTable = () => {
   return (
     <Container maxWidth=" xl" sx={{ pt: 10 }}>
       <Container>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>User Image</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Update</TableCell>
-                <TableCell>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {userData?.length === 0 ? (
+        {loading ? (
+          <PreLoader />
+        ) : (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
                 <TableRow>
-                  <TableCell>
-                    {" "}
-                    <Box>
-                      <Typography variant="h6" gutterBottom component="div">
-                        Please add a new user data.
-                      </Typography>
-                    </Box>
-                  </TableCell>
+                  <TableCell>Id</TableCell>
+                  <TableCell>User Image</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Phone</TableCell>
+                  <TableCell>Update</TableCell>
+                  <TableCell>Delete</TableCell>
                 </TableRow>
-              ) : (
-                userData.map((data, index) => (
-                  <TableRow
-                    key={data._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell>
-                      <Avatar alt={data.name} src={data?.image} />
-                    </TableCell>
-                    <TableCell>{data.name}</TableCell>
-
-                    <TableCell>{data.phone}</TableCell>
-                    <TableCell>
-                      {" "}
-                      <Button
-                        variant="outlined"
-                        startIcon={<EditIcon />}
-                        color="success"
-                        onClick={() => handleOpen(data)}
-                      >
-                        Update
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      {" "}
-                      <Button
-                        variant="outlined"
-                        startIcon={<DeleteIcon />}
-                        color="error"
-                        onClick={() => handleDelete(data._id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
+              </TableHead>
+              <TableBody>
+                {userData?.length === 0 ? (
+                  <TableRow>
+                    {[
+                      "Id",
+                      "User image",
+                      "name",
+                      "phone",
+                      "update",
+                      "delete",
+                    ].map((items) => (
+                      <TableCell>{items} is empty</TableCell>
+                    ))}
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                ) : (
+                  userData.map((data, index) => (
+                    <TableRow
+                      key={data._id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>
+                        <Avatar alt={data.name} src={data?.image} />
+                      </TableCell>
+                      <TableCell>{data.name}</TableCell>
+
+                      <TableCell>{data.phone}</TableCell>
+                      <TableCell>
+                        {" "}
+                        <Button
+                          variant="outlined"
+                          startIcon={<EditIcon />}
+                          color="success"
+                          onClick={() => handleOpen(data)}
+                        >
+                          Update
+                        </Button>
+                      </TableCell>
+                      <TableCell>
+                        {" "}
+                        <Button
+                          variant="outlined"
+                          startIcon={<DeleteIcon />}
+                          color="error"
+                          onClick={() => handleDelete(data._id)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </Container>
       <Model open={open} handleClose={handleClose} updateData={updateData} />
     </Container>

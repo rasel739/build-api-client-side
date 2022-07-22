@@ -11,9 +11,7 @@ import navStyle from "../../assets/style/navbar.module.scss";
 import { logOut } from "../../redux/feature/loginSlice";
 
 const Navbar = () => {
-  const { auth, loginData } = useSelector(
-    (state) => state.rootReducer.loginReducer
-  );
+  const { auth, loginData } = useSelector((state) => state.persistedReducer);
   const dispatch = useDispatch();
 
   return (

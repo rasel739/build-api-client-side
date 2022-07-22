@@ -18,7 +18,7 @@ import { resetPassword } from "../../redux/feature/resetPasswordSlice";
 const theme = createTheme();
 
 const Login = () => {
-  const { auth } = useSelector((state) => state.rootReducer.loginReducer);
+  const { auth } = useSelector((state) => state.persistedReducer);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

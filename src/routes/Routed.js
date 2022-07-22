@@ -7,7 +7,7 @@ import Signup from "../Page/signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const Routed = () => {
-  const { auth } = useSelector((state) => state.rootReducer.loginReducer);
+  const { auth } = useSelector((state) => state.persistedReducer);
 
   return (
     <BrowserRouter>
