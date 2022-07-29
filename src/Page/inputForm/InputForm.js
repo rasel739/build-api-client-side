@@ -53,7 +53,7 @@ const InputForm = () => {
     const userInputData = {
       name: inputs.name,
       phone: inputs.phone,
-      email: loginData.user,
+      email: loginData.user || loginData,
       image: userImage,
     };
 

@@ -35,7 +35,7 @@ const ShowDataTable = () => {
   };
 
   useEffect(() => {
-    dispatch(userGetData(loginData?.user));
+    dispatch(userGetData(loginData?.user || loginData));
   }, [loginData, dispatch]);
 
   const handleDelete = (_id) => {
@@ -83,8 +83,8 @@ const ShowDataTable = () => {
                       "phone",
                       "update",
                       "delete",
-                    ].map((items) => (
-                      <TableCell>{items} is empty</TableCell>
+                    ].map((items, index) => (
+                      <TableCell key={index}>{items} is empty</TableCell>
                     ))}
                   </TableRow>
                 ) : (

@@ -37,7 +37,7 @@ const Navbar = () => {
                 Build Api
               </Typography>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                {loginData ? loginData?.user : " "}
+                {loginData ? loginData?.user || loginData : " "}
               </Typography>
               {auth ? (
                 <Button

@@ -11,10 +11,10 @@ export const createSignupData = createAsyncThunk(
   "signup/createSignup",
   async (signupData) => {
     const res = await axios.post(
-      "http://localhost:5000/usersignup",
+      "http://localhost:5000/user-signup",
       signupData
     );
-
+    localStorage.setItem("token", res?.data?.token);
     return res.data;
   }
 );

@@ -75,6 +75,10 @@ const Login = () => {
     }
   };
 
+  const google = () => {
+    window.open("http://localhost:5000/auth/google", "_self");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -142,6 +146,17 @@ const Login = () => {
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  onClick={google}
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Google login
+                </Button>
               </Grid>
             </Grid>
           </Box>

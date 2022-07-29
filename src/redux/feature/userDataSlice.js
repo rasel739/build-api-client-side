@@ -141,7 +141,7 @@ const createUserData = createSlice({
 
     builder.addCase(userDeleteData.fulfilled, (state, action) => {
       const result = state.userData.filter(
-        (user) => user._id !== action.payload
+        (user) => user._id !== action.payload.id
       );
       state.loading = false;
       state.error = null;

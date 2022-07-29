@@ -11,7 +11,7 @@ export const resetPassword = createAsyncThunk(
   "resetPassword/resetPasswordEmail",
   async (resetEmail) => {
     const { email } = resetEmail;
-    const res = await axios.post(`http://localhost:5000/resetPassword`, {
+    const res = await axios.post(`http://localhost:5000/reset-password`, {
       email: email,
     });
 
@@ -24,7 +24,7 @@ export const resetPasswordConfirm = createAsyncThunk(
   async (resetPasswordConfirms) => {
     const { userId, token, confirmPassword } = resetPasswordConfirms;
     const res = await axios.post(
-      `http://localhost:5000/resetPassword/${userId}/${token}`,
+      `http://localhost:5000/reset-password/${userId}/${token}`,
       {
         password: confirmPassword,
       }
